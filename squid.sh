@@ -3,14 +3,14 @@ apt-get -qq -y install devscripts build-essential openssl libssl-dev fakeroot li
 libcap2 libcap-dev libcap2-dev sysv-rc-conf iproute kernel-package libncurses5-dev fakeroot wget bzip2 debhelper linuxdoc-tools \
 libselinux1-dev htop iftop dnstop
 cd /tmp
-wget https://tempat-sampah.googlecode.com/svn/ssl.patch
-wget https://tempat-sampah.googlecode.com/svn/anti-forgery.patch
+wget https://raw.githubusercontent.com/ucokkarnadi/tempat-sampah/master/ssl.patch
+wget https://raw.githubusercontent.com/ucokkarnadi/tempat-sampah/master/anti-forgery.patch
 wget http://www.squid-cache.org/Versions/v3/3.4/squid-3.4.7.tar.gz
 tar xzvf squid-3.4.7.tar.gz
 apt-get -qq -y install unbound 
 killall unbound
 dig +bufsize=1200 +norec NS . @a.root-servers.net > /etc/unbound/named.cache
-wget https://tempat-sampah.googlecode.com/svn/unbound.conf -O /etc/unbound/unbound.conf
+wget hhttps://raw.githubusercontent.com/ucokkarnadi/tempat-sampah/master/unbound.conf -O /etc/unbound/unbound.conf
 unbound-control-setup
 unbound-control start
 cd squid-3.4.7
@@ -31,22 +31,22 @@ openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 -subj \
 -keyout myCA.pem  -out myCA.pem
 openssl x509 -in myCA.pem -outform DER -out myCA.der
 cp myCA.* /etc/squid3/
-wget https://tempat-sampah.googlecode.com/svn/squid.conf -O /etc/squid3/squid.conf
+wget https://raw.githubusercontent.com/ucokkarnadi/tempat-sampah/master/squid.conf -O /etc/squid3/squid.conf
 sed -i 's/\r//' /etc/squid3/squid.conf
-wget https://tempat-sampah.googlecode.com/svn/store-id.pl -O /etc/squid3/store-id.pl
+wget https://raw.githubusercontent.com/ucokkarnadi/tempat-sampah/master/store-id.pl -O /etc/squid3/store-id.pl
 sed -i 's/\r//' /etc/squid3/store-id.pl
-wget https://tempat-sampah.googlecode.com/svn/squid.init -O /etc/init.d/squid
+wget https://raw.githubusercontent.com/ucokkarnadi/tempat-sampah/master/squid.init -O /etc/init.d/squid
 sed -i 's/\r//' /etc/init.d/squid
-wget https://tempat-sampah.googlecode.com/svn/sysctl.conf -O /etc/sysctl.conf
+wget https://raw.githubusercontent.com/ucokkarnadi/tempat-sampah/master/sysctl.conf -O /etc/sysctl.conf
 sed -i 's/\r//' /etc/sysctl.conf
-wget https://tempat-sampah.googlecode.com/svn/rc.local -O /etc/rc.local
+wget https://raw.githubusercontent.com/ucokkarnadi/tempat-sampah/master/rc.local -O /etc/rc.local
 sed -i 's/\r//' /etc/rc.local
-wget https://tempat-sampah.googlecode.com/svn/limits.conf -O /etc/security/limits.conf
+wget https://raw.githubusercontent.com/ucokkarnadi/tempat-sampah/master/limits.conf -O /etc/security/limits.conf
 sed -i 's/\r//' /etc/security/limits.conf
-wget https://tempat-sampah.googlecode.com/svn/resolv.conf -O /etc/resolv.conf
+wget https://raw.githubusercontent.com/ucokkarnadi/tempat-sampah/master/resolv.conf -O /etc/resolv.conf
 sed -i 's/\r//' /etc/resolv.conf
-wget https://tempat-sampah.googlecode.com/svn/interfaces /etc/network/interfaces
-sed -i 's/\r//' /etc/network/interfaces
+#wget https://raw.githubusercontent.com/ucokkarnadi/tempat-sampah/master/interfaces /etc/network/interfaces
+#sed -i 's/\r//' /etc/network/interfaces
 wget 'http://pgl.yoyo.org/adservers/serverlist.php?hostformat=nohtml' -O /etc/squid3/ad_block.txt 
 sed -i 's/\r//' /etc/squid3/ad_block.txt
 /usr/lib/squid3/ssl_crtd -c -s /etc/squid3/ssl_db
